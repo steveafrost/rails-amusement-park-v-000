@@ -20,6 +20,9 @@
 	<%= f.label :nausea %>
 	<%= f.number_field :nausea %>
 
+	<%= f.label "Admin?" %>
+	<%= f.check_box :admin, value: true %>
+
 	<%= f.submit %>
 
 <% end %>

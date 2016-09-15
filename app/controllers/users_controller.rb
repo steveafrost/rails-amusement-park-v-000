@@ -12,12 +12,13 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		redirect_to root_path unless logged_in?
 	end
 
 	private
 
 	def user_params
-		params.require(:user).permit(:name, :password, :tickets, :height, :happiness, :nausea)
+		params.require(:user).permit(:name, :password, :tickets, :height, :happiness, :nausea, :admin)
 	end
 
 	def find_user

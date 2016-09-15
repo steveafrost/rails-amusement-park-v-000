@@ -1,6 +1,17 @@
+<% if @message %>
+  <h4><%= @message %></h4>
+<% end %>
+
+<% if current_user.admin %>
+	ADMIN
+<% end %>
+
 <h4>Name: <%= @user.name %></h4>
 <h4>Tickets: <%= @user.tickets %></h4>
 <h4>Height: <%= @user.height %></h4>
 <h4>Happiness: <%= @user.happiness %></h4>
 <h4>Nausea: <%= @user.nausea %></h4>
 <h4>Mood: <%= @user.mood %></h4>
+
+<h4><%= link_to "See attractions", attractions_path %></h4>
+<%= link_to "Log Out", signout_path %>

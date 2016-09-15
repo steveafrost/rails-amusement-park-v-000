@@ -4,22 +4,23 @@ class Ride < ActiveRecord::Base
 
 	def take_ride
 		if low_tickets? && too_short?
-			"Sorry. You do not have enough tickets the #{current_attraction.name}. You are not tall enough to ride the #{current_attraction.name}."
+			"You do not have enough tickets to ride the #{current_attraction.name}. You are not tall enough to ride the #{current_attraction.name}."
 		elsif low_tickets?
-			"Sorry. You do not have enough tickets the #{current_attraction.name}."
+			"You do not have enough tickets to ride the #{current_attraction.name}."
 		elsif too_short?
-			"Sorry. You are not tall enough to ride the #{current_attraction.name}."
+			"You are not tall enough to ride the #{current_attraction.name}."
 		else
 			update_tickets
 			update_nausea
 			update_happiness
-			current_user.save
+			current_rider.save
+			"Thanks for riding the #{current_attraction.name}!"
 		end
 	end
 
 	private
 
-	def current_user
+	def current_rider
 		self.user
 	end
 
@@ -28,22 +29,22 @@ class Ride < ActiveRecord::Base
 	end
 
 	def low_tickets?
-		current_user.tickets <= current_attraction.tickets
+		current_rider.tickets <= current_attraction.tickets
 	end
 
 	def too_short?
-		current_user.height <= current_attraction.min_height
+		current_rider.height <= current_attraction.min_height
 	end
 
 	def update_tickets
-		current_user.tickets -= current_attraction.tickets
+		current_rider.tickets -= current_attraction.tickets
 	end
 
 	def update_nausea
-		current_user.nausea += current_attraction.nausea_rating
+		current_rider.nausea += current_attraction.nausea_rating
 	end
 
 	def update_happiness
-		current_user.happiness += current_attraction.happiness_rating
+		current_rider.happiness += current_attraction.happiness_rating
 	end
 end
